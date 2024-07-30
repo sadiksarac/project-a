@@ -16,13 +16,16 @@ jobs:
       with:
         go-version: 1.18
 
-    - name: Run tests and check coverage
+    - name: Run tests and generate coverage profile
+      run: go test -coverprofile=cover.out ./...
+
+    - name: Generate and push coverage badge
       uses: vladopajic/go-test-coverage@v2
       with:
         profile: cover.out
         local-prefix: github.com/sadiksarac/project-a
         threshold-total: 95
-
+    
         git-token: ${{ secrets.BADGES_GITHUB_TOKEN }}
         git-branch: badges
         git-repository: sadiksarac/coverage-badges
