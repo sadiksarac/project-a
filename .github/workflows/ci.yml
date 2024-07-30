@@ -16,6 +16,9 @@ jobs:
       with:
         go-version: 1.18
 
+    - name: Initialize Go module
+      run: go mod init github.com/sadiksarac/project-a
+      
     - name: Run tests and generate coverage profile
       run: go test -coverprofile=cover.out ./...
 
