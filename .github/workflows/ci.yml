@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.18
+
+    - name: Run tests and check coverage
+      uses: vladopajic/go-test-coverage@v2
+      with:
+        profile: cover.out
+        local-prefix: github.com/sadiksarac/project-a
+        threshold-total: 95
+
+        git-token: ${{ secrets.BADGES_GITHUB_TOKEN }}
+        git-branch: badges
+        git-repository: sadiksarac/coverage-badges
+        git-file-name: .badges/${{ github.repository }}/${{ github.ref_name }}/coverage.svg
+
+    - name: Output coverage badge link
+      run: echo "![coverage](https://raw.githubusercontent.com/sadiksarac/coverage-badges/badges/.badges/${{ github.repository }}/${{ github.ref_name }}/coverage.svg)"
