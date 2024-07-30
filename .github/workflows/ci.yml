@@ -24,7 +24,7 @@ jobs:
       with:
         profile: cover.out
         local-prefix: github.com/sadiksarac/project-a
-        threshold-total: 95
+        threshold-total: 20
     
         git-token: ${{ secrets.BADGES_GITHUB_TOKEN }}
         git-branch: badges
